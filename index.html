@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at bottom, #0b0f2a, #000010);
+  overflow:hidden;
+  color:#ff2f2f;
+  position:relative;
+}
+
+/* 💗 TRANG TEXT */
+body::before{
+  content:"TRANG";
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18vw;
+  font-weight:900;
+  color:rgba(255,255,255,0.06);
+  letter-spacing:12px;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* 🌙 MOON */
+.moon{
+  position:fixed;
+  top:40px;
+  right:40px;
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#ddd);
+  box-shadow:0 0 40px rgba(255,255,255,.6);
+  z-index:1;
+}
+
+/* ☁️ CLOUDS */
+.clouds{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.cloud{
+  position:absolute;
+  top:20%;
+  width:260px;
+  height:80px;
+  background:rgba(255,255,255,0.08);
+  border-radius:50px;
+  filter:blur(18px);
+  animation:cloudMove linear infinite;
+}
+.cloud::before,
+.cloud::after{
+  content:"";
+  position:absolute;
+  background:rgba(255,255,255,0.08);
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  top:-50px;
+}
+.cloud::before{ left:40px; }
+.cloud::after{ left:120px; top:-30px; }
+@keyframes cloudMove{
+  from{ transform:translateX(-40vw); }
+  to{ transform:translateX(120vw); }
+}
+
+/* 🌟 STARS */
+.stars{position:fixed;inset:0;z-index:0}
+.star{
+  position:absolute;
+  bottom:-10px;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  box-shadow:0 0 6px rgba(255,255,255,.8);
+  animation:starMove linear infinite;
+}
+@keyframes starMove{
+  to{transform:translateY(-140vh)}
+}
+
+/* 📦 PAGE */
+.page{
+  position:relative;
+  z-index:2;
+  display:none;
+  width:90%;
+  max-width:420px;
+  background:transparent;
+  padding:40px 25px 30px;
+  text-align:center;
+  animation:fade .6s ease;
+}
+.page.active{display:block}
+@keyframes fade{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ✍️ TEXT */
+h1,h2,p{
+  color:#ff2f2f;
+  text-shadow:
+    0 2px 4px rgba(0,0,0,.9),
+    0 0 10px rgba(255,0,0,.4);
+}
+
+.circle{
+  width:150px;height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #ff2f2f;
+  margin-bottom:10px;
+}
+
+img.ring{width:170px}
+
+/* 🔘 BUTTON */
+button{
+  margin-top:18px;
+  padding:10px 28px;
+  border:none;
+  border-radius:30px;
+  background:#ff2f7d;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,0,0,.6);
+}
+
+/* 🎉 CONGRATS */
+.congrats-box{
+  position:fixed;inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  animation:pop 2s ease forwards;
+  z-index:999;
+}
+.congrats-box h1{font-size:32px;margin:0}
+.congrats-box .emojis{font-size:30px;margin-top:8px}
+@keyframes pop{
+  from{opacity:0;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* 🖼️ PHOTO GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+.photo-frame{
+  background:rgba(255,255,255,0.08);
+  padding:8px;
+  border-radius:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.6);
+}
+.photo-frame img{
+  width:100%;
+  border-radius:14px;
+}
+.photo-frame p{
+  margin-top:6px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon"></div>
+
+<div class="clouds">
+  <div class="cloud" style="top:18%;animation-duration:90s;"></div>
+  <div class="cloud" style="top:32%;animation-duration:120s;opacity:.6;"></div>
+  <div class="cloud" style="top:48%;animation-duration:150s;opacity:.4;"></div>
+</div>
+
+<div class="stars" id="stars"></div>
+
+<!-- PAGES -->
+<div class="page active">
+  <h2>💌</h2>
+  <p>Tap to open 👐</p>
+  <button onclick="start()">OPEN ❤️</button>
+</div>
+
+<div class="page">
+  <img class="circle" src="https://i.ibb.co/tM4jTf0R/IMG-20251208-115254-857.jpg">
+  <h2>My Love 💖</h2>
+  <p>Happy Valentine's Day 🫂 💝</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p>I just write something for you by my heart 🫀</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p>
+    I want to tell you that, when I saw you for the first time on call 🥹 you looked gorgeous.
+     I don't know what happened to me,
+                     I really fall in love with you 😊.
+          And I suddenly started to like you 💘. Because I want a beautiful girlfriend like you 😆
+       I don't know if I am handsome or not 😆😆 Forget it...
+          But sometimes I think if I lost you, I don’t know what to do 🥺
+      Maybe I don’t choose any girl in my life.
+                   Because you are everything for me,
+      My heart never allows me to leave you 😭🥲.
+  </p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p>
+       I really love you ☺️.
+    you are my everything.
+    Just give me your hand and I tell you that some man are not like other.
+     I just want you only you 💖.
+  (
+  </p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <img class="ring" src="https://img.sanishtech.com/u/2784720bea3995b12e670d1913612c2d.png">
+  <h2>WILL YOU MARRY ME IN FUTURE TRANG 🌹💍</h2>
+  <button onclick="yes()">YES 💖</button>
+  <button onclick="no()">NO 😅</button>
+  <p id="result"></p>
+</div>
+
+<!-- 📸 PHOTO PAGE -->
+<div class="page">
+  <h2>Our Memories 💞</h2>
+  <div class="gallery">
+    <div class="photo-frame">
+      <img src="https://famous-black-iaunym7m92.edgeone.app/file_0000000088f072068a6a2b57b9de9616.png">
+      <p>My Love 💕</p>
+    </div>
+    <div class="photo-frame">
+      <img src="https://img.sanishtech.com/u/7710b864cee086aefe67d07090e85829.png">
+      <p>My Love 💕</p>
+    </div>
+    <div class="photo-frame">
+      <img src="https://img.sanishtech.com/u/f5bedbe8cafa2932c941bbaee426dcf8.png">
+      <p>My Love 💕</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* STARS */
+const stars=document.getElementById("stars");
+for(let i=0;i<120;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=14+Math.random()*20+"s";
+  const size=2+Math.random()*3;
+  s.style.width=s.style.height=size+"px";
+  stars.appendChild(s);
+}
+
+let pages=document.querySelectorAll('.page');
+let current=0;
+
+function start(){
+  pages[0].classList.remove('active');
+  current=1;
+  pages[current].classList.add('active');
+}
+function next(){
+  pages[current].classList.remove('active');
+  current++;
+  pages[current].classList.add('active');
+}
+function yes(){
+  let box=document.createElement("div");
+  box.className="congrats-box";
+  box.innerHTML=`<h1>Congratulations 🎉💖</h1><div class="emojis">🥹🫂🌷</div>`;
+  document.body.appendChild(box);
+
+  setTimeout(()=>{
+    box.remove();
+    pages[current].classList.remove('active');
+    current++;
+    pages[current].classList.add('active');
+  },2200);
+}
+function no(){
+  document.getElementById("result").innerText="Wrong option, click on YES 😆";
+}
+</script>
+
+</body>
+</html>
